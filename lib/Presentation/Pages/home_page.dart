@@ -1,8 +1,11 @@
+import 'package:avisito_del_clima/Core/Utils/ui_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Blocs/location_bloc.dart';
 import '../Blocs/weather_bloc.dart';
+import '../Widgets/current_weather_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,74 +28,62 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-  /*  void _showLocationPermissionDialog() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => AlertDialog(
-        title: const Text('Permiso de Ubicación'),
-        content: const Text(
-          'Para obtener el clima local automáticamente, necesitamos acceso a tu ubicación.\n\nTambién puedes buscar el clima de cualquier ciudad manualmente.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Usar entrada manual'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              context.read<LocationBloc>().sink.add(
-                LocationRequestPermission(),
-              );
-              Navigator.of(context).pop();
-            },
-            child: const Text('Permitir ubicación'),
-          ),
-        ],
-      ),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     final locationBloc = context.read<LocationBloc>();
     final weatherBloc = context.read<WeatherBloc>();
 
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            StreamBuilder<LocationState>(
-              stream: locationBloc.locationState,
-              builder: (context, snapshot) {
-                final locationState = snapshot.data;
-
-                if (locationState is LocationLoading) {
-                  return CircularProgressIndicator();
-                } else if (locationState is LocationLoaded) {
-                  return Column(
-                    children: [
-                      Text(
-                        'Lat: ${locationState.location.latitude}, Lon: ${locationState.location.longitude}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      _CurrentLocationWeather(weatherBloc: weatherBloc),
-                    ],
-                  );
-                } else if (locationState is LocationPermissionDenied) {
-                  return _ManualCityInput();
-                } else if (locationState is LocationError) {
-                  return Text('Error: ${locationState.message}');
-                }
-                return const Text('Esperando ubicacion');
-              },
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(top: 12, left: 8.0, right: 8.0),
+          child: Text(
+            'Tiempito',
+            style: GoogleFonts.dmSans(
+              fontWeight: FontWeight.w600,
+              fontSize: 30,
+              color: AppColors.dark.getColor,
             ),
-            const SizedBox(height: 24),
-          ],
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: AppColors.secondary.getColor,
+        centerTitle: true,
+      ),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF26A69A), Color(0xFF80CBC4)],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            stops: [0.5, 2.0],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: StreamBuilder<LocationState>(
+            stream: locationBloc.locationState,
+            builder: (context, snapshot) {
+              final locationState = snapshot.data;
+
+              if (locationState is LocationLoading) {
+                return Center(
+                  child: SizedBox.square(
+                    dimension: 20,
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else if (locationState is LocationLoaded) {
+                return CurrentLocationWeather(weatherBloc: weatherBloc);
+              } else if (locationState is LocationPermissionDenied) {
+                return _ManualCityInput();
+              } else if (locationState is LocationError) {
+                return Text('Error: ${locationState.message}');
+              }
+              return const Text('Esperando ubicacion');
+            },
+          ),
         ),
       ),
     );
@@ -117,55 +108,120 @@ class _ManualCityInputState extends State<_ManualCityInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text(
-          'Permisos de ubicación no otorgados',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          'Puedes buscar el clima de cualquier ciudad o permitir el acceso a tu ubicación',
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 16),
-        TextField(
-          controller: _controller,
-          decoration: const InputDecoration(
-            labelText: 'Ciudad',
-            border: OutlineInputBorder(),
-            hintText: 'Ej: Buenos Aires, Madrid, etc.',
-            prefixIcon: Icon(Icons.location_city),
+    return Container(
+      constraints: BoxConstraints(maxHeight: 362),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
-          onSubmitted: (city) {
-            _searchCity();
-          },
-        ),
-        const SizedBox(height: 12),
-        Row(
+        ],
+      ),
+
+      child: Padding(
+        padding: const EdgeInsets.only(top: 24),
+        child: Column(
           children: [
-            Expanded(
-              child: ElevatedButton.icon(
-                onPressed: _searchCity,
-                icon: const Icon(Icons.search),
-                label: const Text('Buscar'),
+            Text(
+              'Permisos de ubicación',
+              style: GoogleFonts.dmSans(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.dark.getColor,
               ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: () {
-                  context.read<LocationBloc>().sink.add(
-                    LocationRequestPermission(),
-                  );
-                },
-                icon: const Icon(Icons.location_on),
-                label: const Text('Permitir ubicación'),
+            const SizedBox(height: 8),
+            Text(
+              'Puedes buscar el tiempo de cualquier ciudad, o permitir el acceso a tu ubicación',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.dmSans(
+                fontSize: 16,
+                color: AppColors.dark.getColor,
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Ciudad',
+                labelStyle: GoogleFonts.dmSans(
+                  fontSize: 16,
+                  color: AppColors.primary.getColor,
+                  fontWeight: FontWeight.bold,
+                ),
+                border: OutlineInputBorder(),
+                hintText: 'Ej: Buenos Aires, Madrid, etc.',
+                prefixIcon: Icon(
+                  Icons.location_city,
+                  color: AppColors.primary.getColor,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(
+                    color: AppColors.primary.getColor,
+                    width: 1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(26),
+                  borderSide: BorderSide(color: Colors.teal, width: 1),
+                ),
+              ),
+              onSubmitted: (city) {
+                _searchCity();
+              },
+            ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: _searchCity,
+                      icon: const Icon(Icons.search),
+                      label: const Text('Buscar'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.foreground.getColor,
+                        backgroundColor: AppColors.primary.getColor,
+                        textStyle: GoogleFonts.dmSans(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: () {
+                        context.read<LocationBloc>().sink.add(
+                          LocationRequestPermission(),
+                        );
+                      },
+                      icon: const Icon(Icons.location_on),
+                      label: const Text('Permitir'),
+                      style: TextButton.styleFrom(
+                        foregroundColor: AppColors.foreground.getColor,
+                        backgroundColor: AppColors.primary.getColor,
+                        textStyle: GoogleFonts.dmSans(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 
@@ -176,40 +232,5 @@ class _ManualCityInputState extends State<_ManualCityInput> {
         LocationSearchByCity(cityName: city),
       );
     }
-  }
-}
-
-class _CurrentLocationWeather extends StatelessWidget {
-  const _CurrentLocationWeather({super.key, required this.weatherBloc});
-
-  final WeatherBloc weatherBloc;
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: weatherBloc.state,
-      builder: (context, snapshot) {
-        final state = snapshot.data;
-        if (snapshot.hasData) {
-          if (state == null || state is WeatherStateLoading) {
-            return CircularProgressIndicator();
-          }
-          if (state is WeatherStateError) {
-            return Text(state.error);
-          }
-          if (state is WeatherStateSuccessful) {
-            final weather = state.weather;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Ciudad: ${weather.city}'),
-                Text('Temperature: ${weather.temperature}'),
-              ],
-            );
-          }
-        }
-        return Container();
-      },
-    );
   }
 }

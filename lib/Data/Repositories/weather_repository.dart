@@ -16,7 +16,7 @@ class WeatherRepository extends IWeatherRepository {
     try {
       final json = await weatherAPIDataSource.fetchWeather(location);
       final weatherModel = WeatherModel.fromJson(json);
-      final weather = weatherModel.toEntity(weatherModel);
+      final weather = weatherModel.toEntity();
       return DataSuccess(data: weather);
     } catch (e) {
       return DataFailure(
