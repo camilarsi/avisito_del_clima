@@ -38,7 +38,7 @@ class WeatherBloc {
   }
 
   void _onLocationChanged(LocationState locationState) async {
-    if (locationState is LocationStateSuccessful) {
+    if (locationState is LocationLoaded) {
       final location = locationState.location;
       _streamController.add(WeatherStateLoading());
 
@@ -46,13 +46,19 @@ class WeatherBloc {
         final weather = await getCurrentWeather(location);
         _streamController.add(WeatherStateSuccessful(weather: weather));
       } catch (e) {
-        _streamController.add(WeatherStateError(error: 'There was an error'));
+        _streamController.add(
+          WeatherStateError(error: 'Error obteniendo clima: ${e.toString()}'),
+        );
       }
-    } else if (locationState is LocationStateError) {
+    } else if (locationState is LocationError) {
       _streamController.add(
         WeatherStateError(
-          error: 'Error en ubicacion: ${locationState.errorMessage}',
+          error: 'Error en ubicacion: ${locationState.message}',
         ),
+      );
+    } else {
+      print(
+        'WeatherBloc: Estado de ubicación no procesado: ${locationState.runtimeType}',
       );
     }
   }

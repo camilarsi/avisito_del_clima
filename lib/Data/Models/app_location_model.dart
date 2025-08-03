@@ -1,4 +1,4 @@
-import '../../Domain/Entities/location.dart';
+import '../../Domain/Entities/app_location.dart';
 
 class LocationModel {
   final double latitude;
@@ -13,7 +13,7 @@ class LocationModel {
     );
   }
 
-  Location toEntity(LocationModel model) {
-    return Location(latitude: model.latitude, longitude: model.longitude);
+  AppLocation toEntity() {
+    return AppLocation(latitude: latitude, longitude: longitude);
   }
 }

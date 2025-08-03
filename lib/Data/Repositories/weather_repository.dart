@@ -1,7 +1,7 @@
 import 'package:avisito_del_clima/Domain/Entities/weather.dart';
 
 import '../../Core/Resources/states.dart';
-import '../../Domain/Entities/location.dart';
+import '../../Domain/Entities/app_location.dart';
 import '../../Domain/Repositories/i_weather_repository.dart';
 import '../Datasources/weather_api_datasource.dart';
 import '../Models/weather_model.dart';
@@ -12,7 +12,7 @@ class WeatherRepository extends IWeatherRepository {
   WeatherRepository({required this.weatherAPIDataSource});
 
   @override
-  Future<DataState<Weather>> getCurrentWeather(Location location) async {
+  Future<DataState<Weather>> getCurrentWeather(AppLocation location) async {
     try {
       final json = await weatherAPIDataSource.fetchWeather(location);
       final weatherModel = WeatherModel.fromJson(json);

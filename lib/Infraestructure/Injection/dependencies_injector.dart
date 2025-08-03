@@ -1,9 +1,6 @@
 import 'package:avisito_del_clima/Data/Datasources/location_datasource.dart';
 import 'package:avisito_del_clima/Data/Datasources/weather_api_datasource.dart';
-import 'package:avisito_del_clima/Data/Repositories/location_repository.dart';
 import 'package:avisito_del_clima/Data/Repositories/weather_repository.dart';
-import 'package:avisito_del_clima/Domain/Repositories/i_location_repository.dart';
-import 'package:avisito_del_clima/Domain/Usecases/get_location_from_device.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,9 +18,7 @@ class DependenciesInjector {
   late final LocationBloc _locationBloc;
   late final WeatherBloc _weatherBloc;
   late final WeatherAPIDataSource _weatherAPIDataSource;
-  late final LocationDataSource _locationDataSource;
-  late final ILocationRepository _locationRepository;
-  late final GetLocationFromDevice _getLocationFromDevice;
+  late final LocationDeviceDataSource _locationDataSource;
   final httpClient = http.Client();
 
   DependenciesInjector._internal() {
@@ -36,14 +31,8 @@ class DependenciesInjector {
       weatherAPIDataSource: _weatherAPIDataSource,
     );
     _getCurrentWeather = GetCurrentWeather(weatherRepository: repository);
-    _locationDataSource = LocationDataSource();
-    _locationRepository = LocationRepository(
-      locationDataSource: _locationDataSource,
-    );
-    _getLocationFromDevice = GetLocationFromDevice(
-      locationRepository: _locationRepository,
-    );
-    _locationBloc = LocationBloc(getLocationFromDevice: _getLocationFromDevice);
+    _locationDataSource = LocationDeviceDataSource();
+    _locationBloc = LocationBloc(locationDeviceDataSource: _locationDataSource);
     _weatherBloc = WeatherBloc(
       getCurrentWeather: _getCurrentWeather,
       locationBloc: _locationBloc,

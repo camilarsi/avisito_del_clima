@@ -1,6 +1,6 @@
 import '../../Core/Resources/states.dart';
-import '../Entities/location.dart';
+import '../Entities/app_location.dart';
 
 abstract class ILocationRepository {
-  Future<DataState<Location>> getLocation(Location location);
+  Future<DataState<AppLocation>> getLocation(AppLocation location);
 }

@@ -1,7 +1,7 @@
 import 'package:avisito_del_clima/Core/Resources/states.dart';
 
 import '../../Data/Repositories/weather_repository.dart';
-import '../Entities/location.dart';
+import '../Entities/app_location.dart';
 import '../Entities/weather.dart';
 
 class GetCurrentWeather {
@@ -9,7 +9,7 @@ class GetCurrentWeather {
 
   GetCurrentWeather({required this.weatherRepository});
 
-  Future<Weather> call(Location location) async {
+  Future<Weather> call(AppLocation location) async {
     final result = await weatherRepository.getCurrentWeather(location);
 
     switch (result) {
