@@ -1,16 +1,49 @@
-# avisito_del_clima
+# Tiempito
 
-A new Flutter project.
+App del clima desarrollada en Flutter que permite consultar el estado del tiempo de tu ubicación
+actual o una ciudad seleccionada manualmente.
 
-## Getting Started
+## Requisitos
 
-This project is a starting point for a Flutter application.
+- Flutter 3.x
+- Dart SDK
+- Android Studio o Xcode (según plataforma)
+- Dispositivo físico o emulador
 
-A few resources to get you started if this is your first Flutter project:
+## Instalación
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. **Clonar el repositorio**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+git clone https://github.com/camilarsi/avisito_del_clima
+cd avisito_del_clima
+```
+
+El nombre del proyecto cambió durante el desarrollo y por eso el repositorio tiene un nombre
+diferente al de la app: 'Clima' es rigurosamente el promedio del 'Tiempo' de determinado periodo
+de años...
+
+2. **Instalar dependencias**
+
+```bash
+   flutter pub get
+```
+
+3. **Configurar claves**
+   Crear un archivo .env en la raíz del proyecto con tu API Key:
+
+```.env
+WEATHER_API_KEY=tu_api_key
+```  
+
+4. **Revisar permisos**
+   Asegurarte de tener los permisos de ubicación en:
+    - android/app/src/main/AndroidManifest.xml
+    - ios/Runner/Info.plist
+
+5. **Ejecutar la app en dispositivo mobile Android, iOS, emulador o simulador**
+
+```bash
+flutter devices 
+flutter run -d <device-id>
+```
