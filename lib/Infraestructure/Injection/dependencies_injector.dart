@@ -25,7 +25,7 @@ class DependenciesInjector {
     final weatherApiKey = dotenv.env['WEATHER_API_KEY'];
     _weatherAPIDataSource = WeatherAPIDataSource(
       client: httpClient,
-      apiKey: weatherApiKey!, //TODO remove null
+      apiKey: weatherApiKey!,
     );
     final repository = WeatherRepository(
       weatherAPIDataSource: _weatherAPIDataSource,

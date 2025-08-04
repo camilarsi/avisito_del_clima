@@ -16,7 +16,7 @@ class GetCurrentWeather {
       case DataSuccess(data: final weather):
         return weather;
       case DataFailure(message: final msg):
-        throw Exception(msg); // TODO model Failure
+        throw Exception(msg);
       case _:
         throw Exception('Unknown error');
     }
