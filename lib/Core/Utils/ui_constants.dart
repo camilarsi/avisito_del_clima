@@ -1,10 +1,19 @@
-import 'dart:ui';
+import 'dart:core';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UIConstants {
-  static const String appTitle = 'Avisito del clima';
+  static const String appTitle = 'Tiempito';
+  static const String waitingLocationMessage = 'Esperando ubicacion';
+  static const String locationPermissionDialogTitle = 'Permisos de ubicación';
+  static const String locationPermissionRequest =
+      'Puedes buscar el tiempo de cualquier ciudad, o permitir el acceso a tu ubicación';
+  static const String searchButton = 'Buscar';
+  static const String givPermissionButton = 'Permitir';
+  static const String currWeatherHeaderTitle = 'Tiempo';
+  static const String citySearchBar = 'Ciudad';
+  static const String citySearchBarHint = 'Ej: Buenos Aires, Madrid, etc.';
+  static const String weatherDetailsSectionTitle = 'Detalles';
 }
 
 enum AppColors {
@@ -77,4 +86,14 @@ class WeatherIcons {
   static IconData getIcon(String condition) {
     return conditionToIcon[condition] ?? Icons.wb_cloudy;
   }
+}
+
+class AppFontSizes {
+  static const double xs = 14.0;
+  static const double sm = 16.0;
+  static const double md = 18.0;
+  static const double lg = 20.0;
+  static const double xl = 30.0;
+  static const double xxl = 40.0;
+  static const double xxXl = 50.0;
 }

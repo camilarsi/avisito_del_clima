@@ -26,71 +26,19 @@ class WeatherDetails extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //_buildForecastSection(),
-          _buildDetailsSection(weather),
-        ],
+        children: [_buildDetailsSection(weather)],
       ),
     );
   }
-
-  /*Widget _buildForecastSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Próximos días',
-          style: GoogleFonts.dmSans(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: AppColors.dark.getColor,
-          ),
-        ),
-        const SizedBox(height: 20),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: _ForecastCard(
-                day: 'Mar',
-                icon: Icons.cloud_outlined,
-                maxTemp: 17,
-                minTemp: 10,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _ForecastCard(
-                day: 'Mié',
-                icon: Icons.grain_outlined,
-                maxTemp: 14,
-                minTemp: 9,
-                isSelected: true,
-              ),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: _ForecastCard(
-                day: 'Jue',
-                icon: Icons.wb_sunny_outlined,
-                maxTemp: 18,
-                minTemp: 12,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }*/
 
   Widget _buildDetailsSection(Weather weather) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Detalles',
+          UIConstants.weatherDetailsSectionTitle,
           style: GoogleFonts.dmSans(
-            fontSize: 22,
+            fontSize: AppFontSizes.lg,
             fontWeight: FontWeight.bold,
             color: AppColors.dark.getColor,
           ),
@@ -131,60 +79,6 @@ class WeatherDetails extends StatelessWidget {
   }
 }
 
-class _ForecastCard extends StatelessWidget {
-  final String day;
-  final IconData icon;
-  final int maxTemp;
-  final int minTemp;
-  final bool isSelected;
-
-  const _ForecastCard({
-    required this.day,
-    required this.icon,
-    required this.maxTemp,
-    required this.minTemp,
-    this.isSelected = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFD1E7FF) : const Color(0xFFF8F9FA),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          Text(
-            day,
-            style: GoogleFonts.dmSans(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: AppColors.dark.getColor,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Icon(
-            icon,
-            size: 40,
-            color: isSelected ? const Color(0xFF26A69A) : Colors.grey.shade600,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            '$maxTemp° $minTemp°',
-            style: GoogleFonts.dmSans(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF2E3A47),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class _DetailItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -210,7 +104,7 @@ class _DetailItem extends StatelessWidget {
               label,
               style: GoogleFonts.dmSans(
                 color: AppColors.dark.getColor,
-                fontSize: 14,
+                fontSize: AppFontSizes.xs,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -219,7 +113,7 @@ class _DetailItem extends StatelessWidget {
               value,
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: AppFontSizes.sm,
                 color: AppColors.dark.getColor,
               ),
             ),

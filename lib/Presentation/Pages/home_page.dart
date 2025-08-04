@@ -42,10 +42,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           child: Column(
             children: [
               Text(
-                'Tiempito',
+                UIConstants.appTitle,
                 style: GoogleFonts.dmSans(
                   fontWeight: FontWeight.w600,
-                  fontSize: 40,
+                  fontSize: AppFontSizes.xxl,
                   color: AppColors.dark.getColor,
                 ),
               ),
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               } else if (locationState is LocationError) {
                 return Text('Error: ${locationState.message}');
               }
-              return const Text('Esperando ubicacion');
+              return const Text(UIConstants.waitingLocationMessage);
             },
           ),
         ),
@@ -136,19 +136,19 @@ class _ManualCityInputState extends State<_ManualCityInput> {
         child: Column(
           children: [
             Text(
-              'Permisos de ubicación',
+              UIConstants.locationPermissionDialogTitle,
               style: GoogleFonts.dmSans(
-                fontSize: 20,
+                fontSize: AppFontSizes.lg,
                 fontWeight: FontWeight.bold,
                 color: AppColors.dark.getColor,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Puedes buscar el tiempo de cualquier ciudad, o permitir el acceso a tu ubicación',
+              UIConstants.locationPermissionRequest,
               textAlign: TextAlign.center,
               style: GoogleFonts.dmSans(
-                fontSize: 16,
+                fontSize: AppFontSizes.sm,
                 color: AppColors.dark.getColor,
               ),
             ),
@@ -163,12 +163,12 @@ class _ManualCityInputState extends State<_ManualCityInput> {
                     child: TextButton.icon(
                       onPressed: _searchCity,
                       icon: const Icon(Icons.search),
-                      label: const Text('Buscar'),
+                      label: const Text(UIConstants.searchButton),
                       style: TextButton.styleFrom(
                         foregroundColor: AppColors.foreground.getColor,
                         backgroundColor: AppColors.primary.getColor,
                         textStyle: GoogleFonts.dmSans(
-                          fontSize: 16,
+                          fontSize: AppFontSizes.sm,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -183,12 +183,12 @@ class _ManualCityInputState extends State<_ManualCityInput> {
                         );
                       },
                       icon: const Icon(Icons.location_on),
-                      label: const Text('Permitir'),
+                      label: const Text(UIConstants.givPermissionButton),
                       style: TextButton.styleFrom(
                         foregroundColor: AppColors.foreground.getColor,
                         backgroundColor: AppColors.primary.getColor,
                         textStyle: GoogleFonts.dmSans(
-                          fontSize: 16,
+                          fontSize: AppFontSizes.sm,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

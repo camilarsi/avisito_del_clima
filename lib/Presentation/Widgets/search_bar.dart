@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../Core/Utils/ui_constants.dart';
 import '../Blocs/location_bloc.dart';
-import 'floating_bee.dart';
 
 class CitySearchBar extends StatelessWidget {
   CitySearchBar({required this.solidBorder, super.key});
@@ -16,14 +15,14 @@ class CitySearchBar extends StatelessWidget {
     return TextField(
       controller: _controller,
       decoration: InputDecoration(
-        labelText: 'Ciudad',
+        labelText: UIConstants.citySearchBar,
         labelStyle: GoogleFonts.dmSans(
-          fontSize: 16,
+          fontSize: AppFontSizes.sm,
           color: AppColors.dark.getColor,
           fontWeight: FontWeight.bold,
         ),
         border: OutlineInputBorder(),
-        hintText: 'Ej: Buenos Aires, Madrid, etc.',
+        hintText: UIConstants.citySearchBarHint,
         prefixIcon: Icon(Icons.location_city, color: AppColors.dark.getColor),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),

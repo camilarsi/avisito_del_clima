@@ -1,3 +1,4 @@
+import 'package:avisito_del_clima/Core/Utils/ui_constants.dart';
 import 'package:avisito_del_clima/Domain/Entities/weather.dart';
 import 'package:avisito_del_clima/Presentation/Widgets/search_bar.dart';
 import 'package:avisito_del_clima/Presentation/Widgets/weather_details.dart';
@@ -65,9 +66,9 @@ Widget buildHeader(Weather weather) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Tiempo',
+          UIConstants.currWeatherHeaderTitle,
           style: GoogleFonts.dmSans(
-            fontSize: 30,
+            fontSize: AppFontSizes.xl,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -75,7 +76,7 @@ Widget buildHeader(Weather weather) {
         Text(
           weather.city,
           style: GoogleFonts.dmSans(
-            fontSize: 40,
+            fontSize: AppFontSizes.xxl,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
@@ -86,7 +87,7 @@ Widget buildHeader(Weather weather) {
             Text(
               '${weather.temperature}°',
               style: GoogleFonts.dmSans(
-                fontSize: 50,
+                fontSize: AppFontSizes.xxXl,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -97,7 +98,7 @@ Widget buildHeader(Weather weather) {
         Text(
           weather.condition, //TODO internationalization
           style: GoogleFonts.dmSans(
-            fontSize: 20,
+            fontSize: AppFontSizes.lg,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
