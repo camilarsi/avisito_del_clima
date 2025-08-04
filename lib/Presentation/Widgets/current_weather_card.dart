@@ -1,9 +1,9 @@
 import 'package:avisito_del_clima/Domain/Entities/weather.dart';
+import 'package:avisito_del_clima/Presentation/Widgets/search_bar.dart';
 import 'package:avisito_del_clima/Presentation/Widgets/weather_details.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../Core/Utils/ui_constants.dart';
 import '../Blocs/weather_bloc.dart';
 
 class CurrentLocationWeather extends StatelessWidget {
@@ -36,6 +36,8 @@ class CurrentLocationWeather extends StatelessWidget {
                 buildHeader(weather),
                 SizedBox(height: 24),
                 WeatherDetails(weather: weather),
+                SizedBox(height: 24),
+                CitySearchBar(solidBorder: false),
               ],
             );
           }
@@ -46,9 +48,7 @@ class CurrentLocationWeather extends StatelessWidget {
   }
 }
 
-Column buildNextDaysWeather() => Column();
-
-Container buildHeader(Weather weather) {
+Widget buildHeader(Weather weather) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(24),
@@ -91,7 +91,7 @@ Container buildHeader(Weather weather) {
                 color: Colors.white,
               ),
             ),
-            Icon(weather.icon, size: 120, color: Colors.white.withOpacity(0.5)),
+            weather.icon,
           ],
         ),
         Text(

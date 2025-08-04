@@ -23,7 +23,7 @@ enum AppColors {
 
 class WeatherIcons {
   static const Map<String, IconData> conditionToIcon = {
-    "Sunny": Icons.wb_sunny,
+    "Sunny": Icons.wb_sunny_rounded,
     "Clear": Icons.nightlight,
     "Partly cloudy": Icons.cloud_queue,
     "Cloudy": Icons.cloud,

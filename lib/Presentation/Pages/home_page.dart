@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../Blocs/location_bloc.dart';
 import '../Blocs/weather_bloc.dart';
 import '../Widgets/current_weather_card.dart';
+import '../Widgets/floating_bee.dart';
+import '../Widgets/search_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,18 +39,23 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(top: 12, left: 8.0, right: 8.0),
-          child: Text(
-            'Tiempito',
-            style: GoogleFonts.dmSans(
-              fontWeight: FontWeight.w600,
-              fontSize: 30,
-              color: AppColors.dark.getColor,
-            ),
+          child: Column(
+            children: [
+              Text(
+                'Tiempito',
+                style: GoogleFonts.dmSans(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 40,
+                  color: AppColors.dark.getColor,
+                ),
+              ),
+              FloatingBee(),
+            ],
           ),
         ),
         elevation: 0,
         backgroundColor: AppColors.secondary.getColor,
-        centerTitle: true,
+        centerTitle: false,
       ),
       body: Container(
         height: double.infinity,
@@ -70,14 +77,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               if (locationState is LocationLoading) {
                 return Center(
                   child: SizedBox.square(
-                    dimension: 20,
-                    child: CircularProgressIndicator(),
+                    dimension: 30,
+                    child: CircularProgressIndicator(
+                      color: AppColors.foreground.getColor,
+                    ),
                   ),
                 );
               } else if (locationState is LocationLoaded) {
                 return CurrentLocationWeather(weatherBloc: weatherBloc);
               } else if (locationState is LocationPermissionDenied) {
-                return _ManualCityInput();
+                return Column(children: [_ManualCityInput(), Spacer()]);
               } else if (locationState is LocationError) {
                 return Text('Error: ${locationState.message}');
               }
@@ -109,10 +118,9 @@ class _ManualCityInputState extends State<_ManualCityInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 362),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.foreground.getColor,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -145,37 +153,7 @@ class _ManualCityInputState extends State<_ManualCityInput> {
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'Ciudad',
-                labelStyle: GoogleFonts.dmSans(
-                  fontSize: 16,
-                  color: AppColors.primary.getColor,
-                  fontWeight: FontWeight.bold,
-                ),
-                border: OutlineInputBorder(),
-                hintText: 'Ej: Buenos Aires, Madrid, etc.',
-                prefixIcon: Icon(
-                  Icons.location_city,
-                  color: AppColors.primary.getColor,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(
-                    color: AppColors.primary.getColor,
-                    width: 1,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(26),
-                  borderSide: BorderSide(color: Colors.teal, width: 1),
-                ),
-              ),
-              onSubmitted: (city) {
-                _searchCity();
-              },
-            ),
+            CitySearchBar(solidBorder: true),
             const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20),

@@ -8,7 +8,7 @@ class Weather {
   final int humidity;
   final double uv;
   final double feelsLike;
-  final IconData icon;
+  final Icon icon;
 
   Weather({
     required this.city,

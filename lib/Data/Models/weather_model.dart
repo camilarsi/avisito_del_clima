@@ -1,5 +1,7 @@
 import 'package:avisito_del_clima/Core/Utils/ui_constants.dart';
 import 'package:avisito_del_clima/Domain/Entities/weather.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class WeatherModel {
   final String city;
@@ -41,7 +43,11 @@ class WeatherModel {
       wind: wind,
       uv: uv,
       feelsLike: feelsLike,
-      icon: WeatherIcons.getIcon(condition),
+      icon: Icon(
+        WeatherIcons.getIcon(condition),
+        size: 120,
+        color: Colors.white.withOpacity(0.5),
+      ),
     );
   }
 }
