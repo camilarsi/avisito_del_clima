@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:avisito_del_clima/Domain/Usecases/get_current_weather.dart';
-import 'package:avisito_del_clima/Presentation/Blocs/location_bloc.dart';
+import 'package:tiempito/Domain/Usecases/get_current_weather.dart';
+import 'package:tiempito/Presentation/Blocs/location_bloc.dart';
 
 import '../../Domain/Entities/weather.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:geolocator/geolocator.dart';
-import 'package:avisito_del_clima/Data/Datasources/location_datasource.dart';
+import 'package:tiempito/Data/Datasources/location_datasource.dart';
 import '../../Domain/Entities/app_location.dart';
 
 sealed class LocationEvent {}

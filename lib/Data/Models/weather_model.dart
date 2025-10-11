@@ -1,5 +1,5 @@
-import 'package:avisito_del_clima/Core/Utils/ui_constants.dart';
-import 'package:avisito_del_clima/Domain/Entities/weather.dart';
+import 'package:tiempito/Core/Utils/ui_constants.dart';
+import 'package:tiempito/Domain/Entities/weather.dart';
 
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:avisito_del_clima/Core/Utils/ui_constants.dart';
+import 'package:tiempito/Core/Utils/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

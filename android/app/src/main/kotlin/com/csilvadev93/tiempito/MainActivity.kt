@@ -1,4 +1,4 @@
-package com.example.avisito_del_clima
+package com.csilvadev93.tiempito
 
 import io.flutter.embedding.android.FlutterActivity
 

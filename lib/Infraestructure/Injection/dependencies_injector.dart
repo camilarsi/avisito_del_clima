@@ -1,6 +1,6 @@
-import 'package:avisito_del_clima/Data/Datasources/location_datasource.dart';
-import 'package:avisito_del_clima/Data/Datasources/weather_api_datasource.dart';
-import 'package:avisito_del_clima/Data/Repositories/weather_repository.dart';
+import 'package:tiempito/Data/Datasources/location_datasource.dart';
+import 'package:tiempito/Data/Datasources/weather_api_datasource.dart';
+import 'package:tiempito/Data/Repositories/weather_repository.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 

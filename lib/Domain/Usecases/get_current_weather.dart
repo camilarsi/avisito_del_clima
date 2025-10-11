@@ -1,4 +1,4 @@
-import 'package:avisito_del_clima/Core/Resources/states.dart';
+import 'package:tiempito/Core/Resources/states.dart';
 
 import '../../Data/Repositories/weather_repository.dart';
 import '../Entities/app_location.dart';
