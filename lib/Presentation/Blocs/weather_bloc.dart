@@ -57,7 +57,7 @@ class WeatherBloc {
         ),
       );
     } else {
-      print(
+      throw Exception(
         'WeatherBloc: Estado de ubicación no procesado: ${locationState.runtimeType}',
       );
     }

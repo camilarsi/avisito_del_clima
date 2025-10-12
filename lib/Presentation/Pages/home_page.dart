@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 }
 
 class _ManualCityInput extends StatefulWidget {
-  const _ManualCityInput({super.key});
+  const _ManualCityInput();
 
   @override
   State<_ManualCityInput> createState() => _ManualCityInputState();
@@ -124,7 +124,7 @@ class _ManualCityInputState extends State<_ManualCityInput> {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

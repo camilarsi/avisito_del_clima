@@ -6,8 +6,6 @@ import '../Utils/constants.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
-
     switch (settings.name) {
       case Routes.initialRoute:
         return MaterialPageRoute(builder: (context) => HomePage());
